@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 const posix = std.posix;
 
 /// Terminal size in rows and columns
@@ -37,51 +38,74 @@ pub const DARK_GREEN = "\x1b[2;92m"; // Dim bright green
 pub const DARKER_GREEN = "\x1b[2;32m"; // Dim normal green
 pub const RESET_COLOR = "\x1b[0m"; // Reset all attributes
 
+/// Platform-specific termios type
+pub const Termios = if (builtin.os.tag == .windows)
+    struct {} // Dummy struct for Windows
+else
+    posix.termios;
+
 /// Initialize terminal for Matrix display (raw mode, hide cursor)
 /// Returns the original termios settings for later restoration
-pub fn initTerminal() !posix.termios {
-    const stdin_fd = posix.STDIN_FILENO;
+pub fn initTerminal() !Termios {
+    if (builtin.os.tag == .windows) {
+        // On Windows, just use ANSI codes (modern Windows Terminal supports them)
+        std.debug.print("{s}{s}{s}", .{ ALT_SCREEN_ENTER, HIDE_CURSOR, CLEAR_SCREEN });
+        return .{};
+    } else {
+        // Unix/POSIX systems
+        const stdin_fd = posix.STDIN_FILENO;
 
-    // Get current terminal settings
-    const original_termios = try posix.tcgetattr(stdin_fd);
-    var raw = original_termios;
+        // Get current terminal settings
+        const original_termios = try posix.tcgetattr(stdin_fd);
+        var raw = original_termios;
 
-    // Configure raw mode
-    raw.lflag.ICANON = false; // Disable canonical mode (line buffering)
-    raw.lflag.ECHO = false; // Disable echo
-    raw.lflag.ISIG = false; // Disable signal generation (Ctrl+C, etc)
-    raw.cc[@intFromEnum(posix.V.MIN)] = 0; // Minimum bytes for read
-    raw.cc[@intFromEnum(posix.V.TIME)] = 0; // Timeout for read (deciseconds)
+        // Configure raw mode
+        raw.lflag.ICANON = false; // Disable canonical mode (line buffering)
+        raw.lflag.ECHO = false; // Disable echo
+        raw.lflag.ISIG = false; // Disable signal generation (Ctrl+C, etc)
+        raw.cc[@intFromEnum(posix.V.MIN)] = 0; // Minimum bytes for read
+        raw.cc[@intFromEnum(posix.V.TIME)] = 0; // Timeout for read (deciseconds)
 
-    // Apply new settings
-    try posix.tcsetattr(stdin_fd, .FLUSH, raw);
+        // Apply new settings
+        try posix.tcsetattr(stdin_fd, .FLUSH, raw);
 
-    // Enter alternate screen, hide cursor, and clear screen
-    std.debug.print("{s}{s}{s}", .{ ALT_SCREEN_ENTER, HIDE_CURSOR, CLEAR_SCREEN });
+        // Enter alternate screen, hide cursor, and clear screen
+        std.debug.print("{s}{s}{s}", .{ ALT_SCREEN_ENTER, HIDE_CURSOR, CLEAR_SCREEN });
 
-    return original_termios;
+        return original_termios;
+    }
 }
 
 /// Get terminal size (rows and columns)
 /// Returns default 24x80 if detection fails
 pub fn getTerminalSize() TerminalSize {
-    const stdout_fd = posix.STDOUT_FILENO;
-
-    var winsize: posix.winsize = undefined;
-    const result = std.posix.system.ioctl(stdout_fd, std.posix.system.T.IOCGWINSZ, @intFromPtr(&winsize));
-
-    if (result == 0 and winsize.row > 0 and winsize.col > 0) {
+    if (builtin.os.tag == .windows) {
+        // On Windows, return a reasonable default
+        // TODO: Use Windows Console API (GetConsoleScreenBufferInfo) for actual size
         return TerminalSize{
-            .rows = winsize.row,
-            .cols = winsize.col,
+            .rows = 24,
+            .cols = 80,
+        };
+    } else {
+        // Unix/POSIX systems
+        const stdout_fd = posix.STDOUT_FILENO;
+
+        var winsize: posix.winsize = undefined;
+        const result = std.posix.system.ioctl(stdout_fd, std.posix.system.T.IOCGWINSZ, @intFromPtr(&winsize));
+
+        if (result == 0 and winsize.row > 0 and winsize.col > 0) {
+            return TerminalSize{
+                .rows = winsize.row,
+                .cols = winsize.col,
+            };
+        }
+
+        // Fallback to default size
+        return TerminalSize{
+            .rows = 24,
+            .cols = 80,
         };
     }
-
-    // Fallback to default size
-    return TerminalSize{
-        .rows = 24,
-        .cols = 80,
-    };
 }
 
 /// Get a random character from the character pool
@@ -208,12 +232,13 @@ pub fn shouldExit(key: u8) bool {
 }
 
 /// Cleanup terminal (restore original settings, show cursor)
-pub fn cleanupTerminal(original_termios: posix.termios) void {
-    const stdin_fd = posix.STDIN_FILENO;
-
+pub fn cleanupTerminal(original_termios: Termios) void {
     // Exit alternate screen, show cursor
     std.debug.print("{s}{s}", .{ ALT_SCREEN_EXIT, SHOW_CURSOR });
 
-    // Restore original terminal settings
-    posix.tcsetattr(stdin_fd, .FLUSH, original_termios) catch {};
+    if (builtin.os.tag != .windows) {
+        // Unix/POSIX systems: restore original terminal settings
+        const stdin_fd = posix.STDIN_FILENO;
+        posix.tcsetattr(stdin_fd, .FLUSH, original_termios) catch {};
+    }
 }

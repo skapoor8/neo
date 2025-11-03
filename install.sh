@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # Configuration
-REPO="skapoor8/neo.git"  # Will be replaced during scaffolding
+REPO="skapoor8/neo"  # Will be replaced during scaffolding
 BINARY_NAME="neo"  # Will be replaced during scaffolding
 
 # Detect OS and architecture

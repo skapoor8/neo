@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 const posix = std.posix;
 const lib = @import("lib.zig");
 
@@ -44,10 +45,17 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    // Initialize random number generator
+    // Initialize random number generator with cross-platform seed
     var prng = std.Random.DefaultPrng.init(blk: {
         var seed: u64 = undefined;
-        std.posix.getrandom(std.mem.asBytes(&seed)) catch break :blk 0;
+        if (builtin.os.tag == .windows) {
+            // Use cross-platform random for Windows
+            seed = @as(u64, @intCast(std.time.milliTimestamp()));
+        } else {
+            std.posix.getrandom(std.mem.asBytes(&seed)) catch {
+                seed = @as(u64, @intCast(std.time.milliTimestamp()));
+            };
+        }
         break :blk seed;
     });
     const rng = prng.random();
@@ -65,7 +73,6 @@ pub fn main() !void {
     }
 
     // Main animation loop
-    const stdin_fd = posix.STDIN_FILENO;
     var buf: [1]u8 = undefined;
     var running = true;
 
@@ -87,26 +94,29 @@ pub fn main() !void {
             }
         }
 
-        // Check for exit key (non-blocking)
-        const bytes_read = posix.read(stdin_fd, &buf) catch 0;
-        if (bytes_read > 0) {
-            // Check for Ctrl+C
-            if (lib.shouldExit(buf[0])) {
-                running = false;
-                break;
-            }
-            // Check for standalone ESC (not part of escape sequence)
-            // ESC sequences have more bytes following immediately
-            if (buf[0] == 0x1b) {
-                // Try to read more - if nothing follows, it's standalone ESC
-                var extra_buf: [10]u8 = undefined;
-                const extra_bytes = posix.read(stdin_fd, &extra_buf) catch 0;
-                if (extra_bytes == 0) {
-                    // Standalone ESC press
+        // Check for exit key (non-blocking) - Unix only
+        if (builtin.os.tag != .windows) {
+            const stdin_fd = posix.STDIN_FILENO;
+            const bytes_read = posix.read(stdin_fd, &buf) catch 0;
+            if (bytes_read > 0) {
+                // Check for Ctrl+C
+                if (lib.shouldExit(buf[0])) {
                     running = false;
                     break;
                 }
-                // Otherwise it was an escape sequence, ignore it
+                // Check for standalone ESC (not part of escape sequence)
+                // ESC sequences have more bytes following immediately
+                if (buf[0] == 0x1b) {
+                    // Try to read more - if nothing follows, it's standalone ESC
+                    var extra_buf: [10]u8 = undefined;
+                    const extra_bytes = posix.read(stdin_fd, &extra_buf) catch 0;
+                    if (extra_bytes == 0) {
+                        // Standalone ESC press
+                        running = false;
+                        break;
+                    }
+                    // Otherwise it was an escape sequence, ignore it
+                }
             }
         }
 
