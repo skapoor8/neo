@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/skapoor8/neo/compare/v1.0.0...v1.0.1) (2025-11-03)
+
+### Bug Fixes
+
+* add Windows cross-platform support ([a6472e3](https://github.com/skapoor8/neo/commit/a6472e3afc3042d186c924717a609a2ffa227ac7))
+
 ## 1.0.0 (2025-11-03)
 
 ### Features
