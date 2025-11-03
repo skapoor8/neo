@@ -1,56 +1,56 @@
-## [1.6.2](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.6.1...v1.6.2) (2025-11-03)
+## [1.6.2](https://github.com/cloudvoyant/neo/compare/v1.6.1...v1.6.2) (2025-11-03)
 
 ### Bug Fixes
 
-* correct upgrade command to reference Zig template ([df34a22](https://github.com/cloudvoyant/nv-ziglib-template/commit/df34a22dd494d7ebcd79df81b6ecf6850060937f))
+* correct upgrade command to reference Zig template ([df34a22](https://github.com/cloudvoyant/neo/commit/df34a22dd494d7ebcd79df81b6ecf6850060937f))
 
-## [1.6.1](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.6.0...v1.6.1) (2025-11-03)
+## [1.6.1](https://github.com/cloudvoyant/neo/compare/v1.6.0...v1.6.1) (2025-11-03)
 
 ### Bug Fixes
 
-* resolve unbound variable error in scaffold interactive mode ([60ccd24](https://github.com/cloudvoyant/nv-ziglib-template/commit/60ccd24f15a19b7c0bfb6ce3cf329921f523c69f))
+* resolve unbound variable error in scaffold interactive mode ([60ccd24](https://github.com/cloudvoyant/neo/commit/60ccd24f15a19b7c0bfb6ce3cf329921f523c69f))
 
-## [1.6.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.5.0...v1.6.0) (2025-11-02)
-
-### Features
-
-* modernize Zig dependency management and improve developer experience ([8e8f7b1](https://github.com/cloudvoyant/nv-ziglib-template/commit/8e8f7b1edd7085aafae5a89126b5c59a10373cc7))
-
-## [1.5.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.4.0...v1.5.0) (2025-11-02)
+## [1.6.0](https://github.com/cloudvoyant/neo/compare/v1.5.0...v1.6.0) (2025-11-02)
 
 ### Features
 
-* add multi-platform binary distribution and library support ([cae12ff](https://github.com/cloudvoyant/nv-ziglib-template/commit/cae12ffd6537d1c00559b4ae12a2eee6a3249df4))
+* modernize Zig dependency management and improve developer experience ([8e8f7b1](https://github.com/cloudvoyant/neo/commit/8e8f7b1edd7085aafae5a89126b5c59a10373cc7))
 
-## [1.4.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.3.0...v1.4.0) (2025-11-02)
-
-### Features
-
-* switching ci to use setup just action ([ee4eceb](https://github.com/cloudvoyant/nv-ziglib-template/commit/ee4eceb4f6479bce9d739f7776052c0b840a0fc5))
-
-## [1.3.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.2.0...v1.3.0) (2025-11-02)
+## [1.5.0](https://github.com/cloudvoyant/neo/compare/v1.4.0...v1.5.0) (2025-11-02)
 
 ### Features
 
-* optimize Docker build performance ([5315fe6](https://github.com/cloudvoyant/nv-ziglib-template/commit/5315fe6364032186a7212336ca1943c16dc99dd9))
+* add multi-platform binary distribution and library support ([cae12ff](https://github.com/cloudvoyant/neo/commit/cae12ffd6537d1c00559b4ae12a2eee6a3249df4))
 
-## [1.2.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.1.0...v1.2.0) (2025-11-02)
-
-### Features
-
-* added caching for /usr/local/bin binaries to speed up build ([3c32103](https://github.com/cloudvoyant/nv-ziglib-template/commit/3c321036e9ec2b3666d06ab099615605e2e76f37))
-
-## [1.1.0](https://github.com/cloudvoyant/nv-ziglib-template/compare/v1.0.0...v1.1.0) (2025-11-02)
+## [1.4.0](https://github.com/cloudvoyant/neo/compare/v1.3.0...v1.4.0) (2025-11-02)
 
 ### Features
 
-* add run-prod command and improve publishing ([5cbba1b](https://github.com/cloudvoyant/nv-ziglib-template/commit/5cbba1b2a331770538b444db57d70a7ff95019fe))
+* switching ci to use setup just action ([ee4eceb](https://github.com/cloudvoyant/neo/commit/ee4eceb4f6479bce9d739f7776052c0b840a0fc5))
+
+## [1.3.0](https://github.com/cloudvoyant/neo/compare/v1.2.0...v1.3.0) (2025-11-02)
+
+### Features
+
+* optimize Docker build performance ([5315fe6](https://github.com/cloudvoyant/neo/commit/5315fe6364032186a7212336ca1943c16dc99dd9))
+
+## [1.2.0](https://github.com/cloudvoyant/neo/compare/v1.1.0...v1.2.0) (2025-11-02)
+
+### Features
+
+* added caching for /usr/local/bin binaries to speed up build ([3c32103](https://github.com/cloudvoyant/neo/commit/3c321036e9ec2b3666d06ab099615605e2e76f37))
+
+## [1.1.0](https://github.com/cloudvoyant/neo/compare/v1.0.0...v1.1.0) (2025-11-02)
+
+### Features
+
+* add run-prod command and improve publishing ([5cbba1b](https://github.com/cloudvoyant/neo/commit/5cbba1b2a331770538b444db57d70a7ff95019fe))
 
 ## 1.0.0 (2025-11-02)
 
 ### Features
 
-* adapt template for Zig with build system and CI/CD ([4cb2bb0](https://github.com/cloudvoyant/nv-ziglib-template/commit/4cb2bb0ec5c08f609b279bab0089970941a2eb28))
+* adapt template for Zig with build system and CI/CD ([4cb2bb0](https://github.com/cloudvoyant/neo/commit/4cb2bb0ec5c08f609b279bab0089970941a2eb28))
 
 ## [1.13.0](https://github.com/cloudvoyant/nv-lib-template/compare/v1.12.0...v1.13.0) (2025-11-02)
 

@@ -1,28 +1,28 @@
 # User Guide
 
-`nv-ziglib-template` is a production-ready Zig project template with automated versioning, multi-platform binary distribution, and GitHub Actions CI/CD. Build CLI tools or libraries with cross-compilation support for Linux, macOS, and Windows.
+`neo` is a Matrix digital rain terminal effect written in Zig. Experience the iconic cascading green numbers from The Matrix right in your terminal.
 
 ## Features
 
-Zig-Specific:
-- Zig 0.15.1 with automatic dependency fetching via build.zig.zon
-- Multi-platform binary builds: Linux (x86_64, aarch64), macOS (x86_64, aarch64), Windows (x86_64)
-- Code formatting with `zig fmt` integrated into CI
-- Example library with comprehensive tests demonstrating Zig patterns
-- Dual-use: build CLI tools (with install script) or libraries (via build.zig.zon)
+Terminal Effect:
+- Full-screen cascading number animation
+- Authentic Matrix color fade (white → bright green → green → dim green)
+- Smooth 20 FPS animation with configurable speed per column
+- Terminal resize support - adapts to window size changes
+- Clean alternate screen buffer - restores terminal state on exit
+- Exit anytime with Ctrl+C or ESC
 
-Development Experience:
-- Self-documenting command interface via `just` - all build/test/release commands in one place
-- Auto-load environment with `direnv` for seamless shell integration
-- Dev Containers with Zig + ZLS (language server) pre-configured
-- Docker support for building without local Zig installation
-- Hot reload workflow: `just run` rebuilds and runs on save
+Implementation:
+- Written in Zig 0.15.1 for performance and safety
+- Raw terminal mode with ANSI escape sequences
+- Non-blocking input for responsive controls
+- Efficient memory management with proper cleanup
+- Cross-platform support: Linux, macOS, Windows
 
-CI/CD & Publishing:
-- Automated versioning with conventional commits (semantic-release)
+Distribution:
 - Multi-platform binaries published to GitHub Releases
-- Optional GCP Artifact Registry publishing for enterprise distribution
-- Tests run on every PR, releases on merge to main
+- One-line installer for quick setup
+- Automated versioning with conventional commits
 
 ## Requirements
 
@@ -34,69 +34,85 @@ Run `just setup` to install all dependencies automatically (Zig, just, direnv).
 
 Optional: `just setup --dev` for development tools, `just setup --template` for template testing.
 
-## Getting Started
+## Installation
 
-## Quick Start
+### Quick Install
 
-Create a new Zig project from this template:
-
-```bash
-# Option 1: Nedavellir CLI (automated)
-nv create your-project-name --template nv-ziglib-template
-
-# Option 2: GitHub template + scaffold script
-# Click "Use this template" on GitHub, then:
-git clone <your-new-repo>
-cd <your-new-repo>
-bash scripts/scaffold.sh --project your-project-name
-```
-
-Setup and build:
+Install using the one-line installer:
 
 ```bash
-just setup              # Install Zig 0.15.1, just, direnv
-just build              # Build with Zig
-just test               # Run Zig tests
-just run                # Run your application
+curl -sSL https://github.com/YOUR_ORG/neo/raw/main/install.sh | bash
 ```
 
-View all available commands:
+This will download the appropriate binary for your platform and install it to `/usr/local/bin`.
+
+### Build from Source
+
+If you prefer to build from source:
 
 ```bash
-❯ just
-Available recipes:
-    [dev]
-    load                 # Load environment
-    install              # Install dependencies
-    build                # Build the project
-    run                  # Run project locally
-    test                 # Run tests
-    clean                # Clean build artifacts
-    format               # Format Zig code
-    lint                 # Lint Zig code
+# Clone the repository
+git clone https://github.com/YOUR_ORG/neo.git
+cd neo
 
-[ OUTPUT TRUNCATED ]
+# Install dependencies (Zig, just, direnv)
+just setup
+
+# Build the project
+just build
+
+# Run locally
+just run
 ```
 
-Example build and test:
+## Usage
+
+### Running neo
+
+Simply run the `neo` command:
 
 ```bash
-❯ just build
-Building nv-ziglib-template@1.1.0
-Build Summary: 3/3 steps succeeded
-└─ install
-   └─ install nv-ziglib-template
-
-❯ just test
-Running tests
-
-Build Summary: 3/3 steps succeeded; 7/7 tests passed
-test success
-+- run test 7 passed 1ms MaxRSS:1M
-   +- compile test Debug native cached 45ms MaxRSS:30M
+neo
 ```
 
-Commit using conventional commits to trigger automated releases:
+This will enter full-screen mode and display the Matrix digital rain effect.
+
+### Controls
+
+- **Ctrl+C** - Exit the matrix
+- **ESC** - Exit the matrix
+
+Both methods cleanly restore your terminal to its previous state.
+
+### Help
+
+View the help message:
+
+```bash
+neo --help
+```
+
+## How It Works
+
+**Terminal Control:**
+- Uses raw terminal mode to disable line buffering and echo
+- Hides the cursor for clean visualization
+- Enters alternate screen buffer (like vim) so your terminal history is preserved
+
+**Animation:**
+- Each column falls at a different speed (randomized on initialization)
+- Characters randomly change as they fall
+- Color fades from white (head) → bright green → green → dark green (tail)
+- Renders at ~20 FPS with 50ms sleep between frames
+
+**Resize Support:**
+- Detects terminal size changes every frame
+- Dynamically reallocates columns when terminal is resized
+- Seamlessly adapts to new dimensions
+
+## Development
+
+### Building
 
 ```bash
 git commit -m "feat: add new string utility"
@@ -195,7 +211,7 @@ This template supports two use cases:
 #### Option 1: Quick Install (Recommended)
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/cloudvoyant/nv-ziglib-template/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/cloudvoyant/neo/main/install.sh | bash
 ```
 
 This script:
@@ -206,19 +222,19 @@ This script:
 
 #### Option 2: Manual Installation
 
-1. Download the binary for your platform from [GitHub Releases](https://github.com/cloudvoyant/nv-ziglib-template/releases):
-   - `nv-ziglib-template-linux-x86_64`
-   - `nv-ziglib-template-linux-aarch64`
-   - `nv-ziglib-template-macos-x86_64`
-   - `nv-ziglib-template-macos-aarch64`
-   - `nv-ziglib-template-windows-x86_64.exe`
+1. Download the binary for your platform from [GitHub Releases](https://github.com/cloudvoyant/neo/releases):
+   - `neo-linux-x86_64`
+   - `neo-linux-aarch64`
+   - `neo-macos-x86_64`
+   - `neo-macos-aarch64`
+   - `neo-windows-x86_64.exe`
 
 2. Extract and add to PATH:
    ```bash
    # Linux/macOS
-   tar -xzf nv-ziglib-template-*.tar.gz
-   mv nv-ziglib-template-* ~/.local/bin/nv-ziglib-template
-   chmod +x ~/.local/bin/nv-ziglib-template
+   tar -xzf neo-*.tar.gz
+   mv neo-* ~/.local/bin/neo
+   chmod +x ~/.local/bin/neo
 
    # Add to PATH if needed
    echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
@@ -228,10 +244,10 @@ This script:
 #### Option 3: Build from Source
 
 ```bash
-git clone https://github.com/cloudvoyant/nv-ziglib-template.git
-cd nv-ziglib-template
+git clone https://github.com/cloudvoyant/neo.git
+cd neo
 zig build -Doptimize=ReleaseFast
-sudo cp zig-out/bin/nv-ziglib-template /usr/local/bin/
+sudo cp zig-out/bin/neo /usr/local/bin/
 ```
 
 ### Using as a Library (Zig Projects)
@@ -242,10 +258,10 @@ Use `zig fetch` to automatically add this package to your `build.zig.zon`:
 
 ```bash
 # Use a specific version (recommended for production)
-zig fetch --save "git+https://github.com/cloudvoyant/nv-ziglib-template#v1.1.0"
+zig fetch --save "git+https://github.com/cloudvoyant/neo#v1.1.0"
 
 # Or track the latest changes on main
-zig fetch --save "git+https://github.com/cloudvoyant/nv-ziglib-template#main"
+zig fetch --save "git+https://github.com/cloudvoyant/neo#main"
 ```
 
 This automatically updates `build.zig.zon` with the correct hash.
@@ -255,18 +271,18 @@ This automatically updates `build.zig.zon` with the correct hash.
 In your `build.zig`:
 
 ```zig
-const nv_ziglib_template = b.dependency("nv_ziglib_template", .{
+const neo = b.dependency("neo", .{
     .target = target,
     .optimize = optimize,
 });
 
-exe.root_module.addImport("nv-ziglib-template", nv_ziglib_template.module("nv_ziglib_template"));
+exe.root_module.addImport("neo", neo.module("neo"));
 ```
 
 In your source code:
 
 ```zig
-const stringutils = @import("nv-ziglib-template");
+const stringutils = @import("neo");
 
 pub fn main() void {
     const reversed = stringutils.reverse("Hello");
@@ -333,7 +349,7 @@ pub fn build(b: *std.Build) void {
 
     // Create library
     const lib = b.addStaticLibrary(.{
-        .name = "nv-ziglib-template",
+        .name = "neo",
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
@@ -341,7 +357,7 @@ pub fn build(b: *std.Build) void {
 
     // Create executable
     const exe = b.addExecutable(.{
-        .name = "nv-ziglib-template",
+        .name = "neo",
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,

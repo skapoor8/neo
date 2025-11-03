@@ -1,11 +1,11 @@
 .{
-    .name = .nv_ziglib_template,
-    .version = "1.6.2",
+    .name = .neo,
+    .version = "0.1.0",
     .dependencies = .{},
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
     },
-    .fingerprint = 0xa0ecdb504426b8a4,
+    .fingerprint = 0x788fdc133822c683,
 }

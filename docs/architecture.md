@@ -2,7 +2,7 @@
 
 ## Overview
 
-`nv-ziglib-template` is a production-ready Zig project template with automated versioning, multi-platform binary distribution, and GitHub Actions CI/CD. Build CLI tools or libraries with cross-compilation support for Linux, macOS, and Windows.
+`neo` is a production-ready Zig project template with automated versioning, multi-platform binary distribution, and GitHub Actions CI/CD. Build CLI tools or libraries with cross-compilation support for Linux, macOS, and Windows.
 
 The template integrates Zig's native build system (build.zig) with a portable bash framework for CI/CD automation. Multi-platform binaries are published to GitHub Releases by default, with optional GCP Artifact Registry support for enterprise distribution.
 
@@ -246,7 +246,7 @@ GitHub Releases (Primary - Always Active):
 - Multi-platform binaries automatically uploaded to GitHub Releases
 - No configuration needed (uses GITHUB_TOKEN)
 - Supports: Linux (x86_64, aarch64), macOS (x86_64, aarch64), Windows (x86_64)
-- Binary naming: `project-os-arch` (e.g., `nv-ziglib-template-linux-x86_64`)
+- Binary naming: `project-os-arch` (e.g., `neo-linux-x86_64`)
 - Users install via `install.sh` or manual download
 
 GCP Artifact Registry (Optional - Enterprise):

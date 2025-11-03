@@ -48,9 +48,9 @@ build:
 
 # Run project locally
 [group('dev')]
-run: build
+run *ARGS: build
     @echo -e "{{INFO}}Running $PROJECT@$VERSION{{NORMAL}}"
-    @zig build run
+    @./zig-out/bin/$PROJECT {{ARGS}}
 
 # Run tests
 [group('dev')]
@@ -256,22 +256,3 @@ show:
     @bash scripts/toggle-files.sh show
 
 # ==============================================================================
-# TEMPLATE
-# ==============================================================================
-
-# Scaffold a new project
-[group('template')]
-scaffold:
-    @bash scripts/scaffold.sh
-
-# Run template tests
-[group('template')]
-test-template:
-    #!/usr/bin/env bash
-    if command -v bats >/dev/null 2>&1; then
-        echo -e "{{INFO}}Running template tests{{NORMAL}}";
-        bats test/;
-    else
-        echo -e "{{ERROR}}bats not installed. Run: just setup --template{{NORMAL}}";
-        exit 1;
-    fi

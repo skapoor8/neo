@@ -5,7 +5,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     // Create library module
-    const lib_mod = b.addModule("nv_ziglib_template", .{
+    const lib_mod = b.addModule("neo", .{
         .root_source_file = b.path("src/lib.zig"),
     });
     _ = lib_mod;
@@ -24,7 +24,7 @@ pub fn build(b: *std.Build) void {
 
     // Example executable
     const exe = b.addExecutable(.{
-        .name = "nv-ziglib-template",
+        .name = "neo",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .target = target,

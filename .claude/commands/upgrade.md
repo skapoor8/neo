@@ -1,4 +1,4 @@
-Help me migrate this project to the latest nv-ziglib-template version using a spec-driven approach.
+Help me migrate this project to the latest neo version using a spec-driven approach.
 
 ## Overview
 
@@ -33,7 +33,7 @@ mkdir -p .nv
 if [ -d ".nv/template-upstream-main" ]; then
     cd .nv/template-upstream-main && git pull && cd ../..
 else
-    git clone https://github.com/cloudvoyant/nv-ziglib-template .nv/template-upstream-main
+    git clone https://github.com/cloudvoyant/neo .nv/template-upstream-main
 fi
 ```
 
@@ -46,7 +46,7 @@ Structure:
 # Migration Plan: v<current> → v<target>
 
 ## Overview
-Migrate from nv-ziglib-template v<current> to v<target>
+Migrate from neo v<current> to v<target>
 
 ## Files to Review
 
@@ -215,7 +215,7 @@ If `.envrc` doesn't have `NV_TEMPLATE_VERSION`, add it:
 ```bash
 echo '' >> .envrc
 echo '# Nedavellir template tracking' >> .envrc
-echo 'export NV_TEMPLATE=nv-ziglib-template' >> .envrc
+echo 'export NV_TEMPLATE=neo' >> .envrc
 echo 'export NV_TEMPLATE_VERSION=<current-version>' >> .envrc
 ```
 
