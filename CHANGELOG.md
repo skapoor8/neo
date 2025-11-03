@@ -1,3 +1,9 @@
+## 1.0.0 (2025-11-03)
+
+### Features
+
+* implement Matrix digital rain terminal effect ([6348311](https://github.com/skapoor8/neo/commit/63483119f4a13a7d06a7cf5f023c012ba4afb8d6))
+
 ## [1.6.2](https://github.com/cloudvoyant/neo/compare/v1.6.1...v1.6.2) (2025-11-03)
 
 ### Bug Fixes
