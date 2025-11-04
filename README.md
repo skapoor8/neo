@@ -7,6 +7,7 @@
 **neo** is a terminal application that displays the iconic Matrix digital rain effect. Watch cascading green numbers flow down your screen in an authentic Matrix-style animation.
 
 Features:
+
 - Full-screen cascading number animation
 - Authentic Matrix color fade (white → bright green → green → dim green)
 - Smooth 20 FPS animation
@@ -47,7 +48,7 @@ Optional: `just setup --dev` for development tools (ZLS language server), `just 
 
 ```bash
 # Install using the install script
-curl -sSL https://github.com/YOUR_ORG/neo/raw/main/install.sh | bash
+curl -sSL https://github.com/skapoor8/neo/raw/main/install.sh | bash
 
 # Or build from source
 just build
@@ -64,6 +65,7 @@ neo --help
 ```
 
 **Controls:**
+
 - `Ctrl+C` or `ESC` - Exit the Matrix and return to your normal terminal
 
 ### Development
@@ -119,14 +121,17 @@ This will publish a pre-release package version.
 Publishing is configured for both GitHub Releases (binaries) and optionally GCP Artifact Registry.
 
 **GitHub Releases** (default):
+
 - Multi-platform binaries are automatically built and uploaded to GitHub Releases
 - Users can install with: `curl -sSL https://github.com/YOUR_ORG/neo/raw/main/install.sh | bash`
 
 **GCP Artifact Registry** (optional):
+
 - Configure in `.envrc`: Set `GCP_REGISTRY_PROJECT_ID`, `GCP_REGISTRY_REGION`, `GCP_REGISTRY_NAME`
 - Add `GCP_SA_KEY` secret to GitHub repository for automated publishing
 
 **Pre-built binaries:**
+
 - Multi-platform binaries are automatically built and uploaded to GitHub Releases
 - Install with the one-line installer above or download directly from releases
 

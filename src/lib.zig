@@ -177,9 +177,15 @@ pub fn updateColumn(column: *Column, rng: std.Random, max_rows: u16) void {
 }
 
 /// Render all columns to the screen
+/// Uses buffering to reduce flickering by writing all output at once
 pub fn renderColumns(columns: []const Column, term_size: TerminalSize) void {
+    // Create a fixed buffer for building the entire frame (64KB should be enough)
+    var buffer: [65536]u8 = undefined;
+    var stream = std.io.fixedBufferStream(&buffer);
+    const writer = stream.writer();
+
     // Clear screen and reset cursor to home
-    std.debug.print("{s}", .{CLEAR_SCREEN});
+    writer.writeAll(CLEAR_SCREEN) catch return;
 
     for (columns) |col| {
         // Only render if column head is on or below screen top
@@ -215,15 +221,18 @@ pub fn renderColumns(columns: []const Column, term_size: TerminalSize) void {
                 DARKER_GREEN; // Positions 11+: very dim green
 
             // Draw character at position
-            std.debug.print("\x1b[{};{}H{s}{c}{s}", .{
+            writer.print("\x1b[{};{}H{s}{c}{s}", .{
                 row,
                 col_pos,
                 color,
                 col.chars[i],
                 RESET_COLOR,
-            });
+            }) catch return;
         }
     }
+
+    // Output entire buffer at once to prevent flickering
+    std.debug.print("{s}", .{stream.getWritten()});
 }
 
 /// Check if a key should trigger exit (Ctrl+C only)
