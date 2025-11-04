@@ -2,6 +2,8 @@
 
 > Matrix digital rain terminal effect
 
+![Demo](docs/.images/demo.gif)
+
 ## Overview
 
 **neo** is a terminal application that displays the iconic Matrix digital rain effect. Watch cascading green numbers flow down your screen in an authentic Matrix-style animation.
