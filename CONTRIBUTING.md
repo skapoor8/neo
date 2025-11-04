@@ -89,7 +89,7 @@ Update documentation when:
 Documentation files:
 
 - `README.md` - Quick start and overview
-- `docs/architecture.md` - Design, architecture, and implementation
+- `docs/infrastructure.md` - Build system, CI/CD, and release automation
 
 Follow the documentation style guide:
 

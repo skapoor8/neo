@@ -3,8 +3,9 @@
 ## Documentation
 
 Required files in `docs/`:
-- `architecture.md` - design philosophy + implementation (overview → features → design → components → details)
-- `user-guide.md` - usage for clients
+- `infrastructure.md` - build system, CI/CD, release automation (template infrastructure)
+- `development-guide.md` - usage for clients
+- `architecture.md` - application design and implementation (to be created)
 
 Style:
 - Concise and scannable
@@ -71,7 +72,7 @@ When to create:
 
 After creating:
 1. Update `docs/decisions/README.md`
-2. Update `docs/architecture.md` if needed
+2. Update `docs/infrastructure.md` or `docs/architecture.md` if needed
 3. Reference ADR when explaining choices
 
 ## Justfile

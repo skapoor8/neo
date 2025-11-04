@@ -1,6 +1,6 @@
-# User Guide
+# Development Guide
 
-`neo` is a Matrix digital rain terminal effect written in Zig. Experience the iconic cascading green numbers from The Matrix right in your terminal.
+`neo` is a Matrix digital rain terminal effect written in Zig. This guide covers installation, usage, development setup, building, testing, and publishing releases.
 
 ## Features
 
@@ -79,8 +79,8 @@ This will enter full-screen mode and display the Matrix digital rain effect.
 
 ### Controls
 
-- **Ctrl+C** - Exit the matrix
-- **ESC** - Exit the matrix
+- Ctrl+C - Exit the matrix
+- ESC - Exit the matrix
 
 Both methods cleanly restore your terminal to its previous state.
 
@@ -94,30 +94,73 @@ neo --help
 
 ## How It Works
 
-**Terminal Control:**
+Terminal Control:
 - Uses raw terminal mode to disable line buffering and echo
 - Hides the cursor for clean visualization
 - Enters alternate screen buffer (like vim) so your terminal history is preserved
 
-**Animation:**
+Animation:
 - Each column falls at a different speed (randomized on initialization)
 - Characters randomly change as they fall
 - Color fades from white (head) → bright green → green → dark green (tail)
 - Renders at ~20 FPS with 50ms sleep between frames
 
-**Resize Support:**
+Resize Support:
 - Detects terminal size changes every frame
 - Dynamically reallocates columns when terminal is resized
 - Seamlessly adapts to new dimensions
 
 ## Development
 
-### Building
+This section is for contributors who want to work on neo itself.
+
+### Project Structure
+
+```
+.
+├── docs/          # Documentation
+├── scripts/       # Utility scripts and CI/CD hooks
+├── src/           # Zig source code
+├── build.zig      # Zig build configuration
+├── build.zig.zon  # Zig package manifest
+├── justfile       # Build recipes
+├── .envrc         # Key env vars and shell config
+└── version.txt    # Project version
+```
+
+### Prerequisites for Contributors
+
+- bash 3.2+
+- just (command runner)
+- Zig 0.15.1 or later
+- direnv (optional, for environment management)
+
+Run `just setup` or `./scripts/setup.sh` to install remaining dependencies automatically.
+
+Optional: `just setup --dev` for development tools (ZLS language server), `just setup --template` for template testing.
+
+### Building and Testing
+
+Build, run, and test with `just`:
 
 ```bash
-git commit -m "feat: add new string utility"
-git push origin main
-# CI automatically: runs tests → creates release → publishes binaries
+# Build the project
+just build
+
+# Run locally
+just run
+
+# Run tests
+just test
+
+# Clean build artifacts
+just clean
+
+# Format code
+just format
+
+# Check formatting
+just format-check
 ```
 
 ### Using Docker
@@ -203,8 +246,8 @@ just lint-fix   # Auto-fix formatting (alias for format)
 
 This template supports two use cases:
 
-1. **As a CLI Tool**: End users install pre-built binaries
-2. **As a Library**: Zig projects import as a dependency
+1. As a CLI Tool: End users install pre-built binaries
+2. As a Library: Zig projects import as a dependency
 
 ### Installing as a CLI Tool
 
@@ -585,6 +628,70 @@ claude /upgrade
 
 This creates a comprehensive migration plan, compares files, and walks you through changes while preserving your customizations.
 
+## Publishing
+
+This section is for maintainers who manage releases and publish binaries.
+
+### Release Process
+
+Releases are automated using conventional commits and semantic versioning:
+
+1. Make changes on a feature branch
+2. Commit with conventional commits:
+   - `feat: add new feature` → minor version bump (1.x.0)
+   - `fix: resolve bug` → patch version bump (1.0.x)
+   - `docs: update documentation` → no version bump (appears in changelog)
+   - `feat!: breaking change` or `BREAKING CHANGE:` in footer → major version bump (x.0.0)
+3. Push to GitHub and create a pull request
+4. Merge to main - the CI/CD pipeline automatically:
+   - Runs tests
+   - Builds multi-platform binaries
+   - Generates changelog
+   - Creates GitHub release with binaries
+   - Publishes to registry (if configured)
+
+### Manual Publishing
+
+To publish manually:
+
+```bash
+# Ensure you're on main branch with clean working directory
+just publish
+```
+
+This will publish a pre-release package version.
+
+### Registry Configuration
+
+Publishing is configured for both GitHub Releases (binaries) and optionally GCP Artifact Registry.
+
+GitHub Releases (default):
+
+- Multi-platform binaries are automatically built and uploaded to GitHub Releases
+- Binaries for: Linux (x86_64, aarch64), macOS (x86_64, aarch64), Windows (x86_64)
+- Users can install with: `curl -sSL https://github.com/skapoor8/neo/raw/main/install.sh | bash`
+
+GCP Artifact Registry (optional):
+
+- Configure in `.envrc`: Set `GCP_REGISTRY_PROJECT_ID`, `GCP_REGISTRY_REGION`, `GCP_REGISTRY_NAME`
+- Add `GCP_SA_KEY` secret to GitHub repository for automated publishing
+- Binaries are uploaded individually to GCP Artifact Registry on release
+
+Multi-platform Builds:
+
+The `just build-all-platforms` command cross-compiles for all supported platforms:
+
+```bash
+just build-all-platforms
+```
+
+This generates binaries in `zig-out/bin/`:
+- `neo-linux-x86_64`
+- `neo-linux-aarch64`
+- `neo-macos-x86_64`
+- `neo-macos-aarch64`
+- `neo-windows-x86_64.exe`
+
 ## Troubleshooting
 
 ### direnv not loading .envrc
@@ -649,4 +756,4 @@ Ensure:
 
 Or just run `claude /adapt`.
 
-See [Architecture](architecture.md) for implementation details.
+See [Infrastructure](infrastructure.md) for build system and CI/CD details.

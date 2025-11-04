@@ -41,8 +41,8 @@ See `/upgrade` command for the canonical example:
 
 `docs/` - Permanent knowledge
 
-- `architecture.md` - design principles, system architecture (prime directive)
-- `user-guide.md` - how to use the project
+- `infrastructure.md` - build system, CI/CD, release automation (template infrastructure)
+- `development-guide.md` - how to use the project
 - `decisions/` - ADRs for significant choices
 
 ### When to Create ADRs
@@ -52,7 +52,7 @@ For significant architectural changes:
 1. Create `docs/decisions/NNN-short-title.md`
 2. Follow ADR template in `.claude/style.md`
 3. Update `docs/decisions/README.md` index
-4. Update `docs/architecture.md` if needed
+4. Update `docs/infrastructure.md` if needed
 
 ## Git Commits
 

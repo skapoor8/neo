@@ -65,6 +65,7 @@ update_file_exclusions() {
                 s/"scripts": [^,]*/"scripts": true/
                 s/"CONTRIBUTING\.md": [^,]*/"CONTRIBUTING.md": true/
                 s/"CHANGELOG\.md": [^,]*/"CHANGELOG.md": true/
+                s/"LICENSE": [^,]*/"LICENSE": true/
             }
         ' "$SETTINGS_FILE"
 
@@ -103,6 +104,9 @@ update_file_exclusions() {
         if ! grep -q '"CHANGELOG.md"' "$SETTINGS_FILE"; then
             sed -i.tmp '/"files.exclude": {/,/}/ s/\(.*\)}/    "CHANGELOG.md": true,\n\1}/' "$SETTINGS_FILE"
         fi
+        if ! grep -q '"LICENSE"' "$SETTINGS_FILE"; then
+            sed -i.tmp '/"files.exclude": {/,/}/ s/\(.*\)}/    "LICENSE": true,\n\1}/' "$SETTINGS_FILE"
+        fi
     else
         # Show all files
         sed -i.tmp '
@@ -125,6 +129,7 @@ update_file_exclusions() {
                 s/"scripts": [^,]*/"scripts": false/
                 s/"CONTRIBUTING\.md": [^,]*/"CONTRIBUTING.md": false/
                 s/"CHANGELOG\.md": [^,]*/"CHANGELOG.md": false/
+                s/"LICENSE": [^,]*/"LICENSE": false/
             }
         ' "$SETTINGS_FILE"
     fi

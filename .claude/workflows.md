@@ -13,7 +13,7 @@ Always follow this pattern:
 3. Mark complete immediately - Check off items as you finish
 4. Use TodoWrite within phases - Track progress for user visibility
 5. Pause between phases - Inform user when phase completes, wait for confirmation, ask to commit
-6. Update docs when done - Sync architecture.md and user-guide.md with reality
+6. Update docs when done - Sync infrastructure.md and development-guide.md with reality
 7. Delete plan.md - Clean up when complete
 
 See `/upgrade` command for reference implementation of this pattern.

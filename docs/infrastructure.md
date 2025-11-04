@@ -1,8 +1,8 @@
-# Architecture
+# Infrastructure
 
 ## Overview
 
-`neo` is a production-ready Zig project template with automated versioning, multi-platform binary distribution, and GitHub Actions CI/CD. Build CLI tools or libraries with cross-compilation support for Linux, macOS, and Windows.
+This document describes the build system, CI/CD pipeline, and release automation for the neo project. The infrastructure is based on a Zig project template with automated versioning, multi-platform binary distribution, and GitHub Actions CI/CD.
 
 The template integrates Zig's native build system (build.zig) with a portable bash framework for CI/CD automation. Multi-platform binaries are published to GitHub Releases by default, with optional GCP Artifact Registry support for enterprise distribution.
 
@@ -33,7 +33,7 @@ When you run a command like `just build`, here's what happens:
 
 ### Getting Started
 
-For detailed setup instructions, see the [User Guide](user-guide.md#quick-start).
+For detailed setup instructions, see the [Development Guide](development-guide.md#quick-start).
 
 After scaffolding a project from this template, you have a working Zig project ready to build. Interact with your project via `just` commands:
 
@@ -86,7 +86,7 @@ lib/
 │   └── upversion.sh
 ├── src/                     # Sample code
 ├── test/                    # bats tests (for template)
-├── docs/                    # architecture.md, user-guide.md
+├── docs/                    # infrastructure.md, development-guide.md
 ├── .claude/                 # AI workflows + all commands
 ├── .github/workflows/       # ci.yml, release.yml
 └── .devcontainer/           # VS Code container
@@ -227,7 +227,7 @@ Cross-Platform Considerations:
 
 ### Setup Flags
 
-The `setup.sh` script uses semantic flags to indicate what level of tooling to install (also documented in [User Guide](user-guide.md#getting-started)):
+The `setup.sh` script uses semantic flags to indicate what level of tooling to install (also documented in [Development Guide](development-guide.md#getting-started)):
 
 ```bash
 just setup              # Required: bash, just, direnv
@@ -273,7 +273,7 @@ For GCP (default):
 - `GCP_SA_KEY` - Service account JSON key
 - `GCP_REGISTRY_PROJECT_ID`, `GCP_REGISTRY_REGION`, `GCP_REGISTRY_NAME` - Registry configuration
 
-For other registries (see [user-guide.md](user-guide.md#cicd-secrets) for details):
+For other registries (see [development-guide.md](development-guide.md#cicd-secrets) for details):
 - npm: `NPM_TOKEN`
 - PyPI: `PYPI_TOKEN`
 - Docker Hub: `DOCKER_USERNAME`, `DOCKER_PASSWORD`

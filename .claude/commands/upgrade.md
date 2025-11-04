@@ -86,8 +86,8 @@ Migrate from neo v<current> to v<target>
 
 ### Documentation
 - [ ] README.template.md - Check for documentation updates
-- [ ] docs/architecture.md - Check for architecture changes
-- [ ] docs/user-guide.md - Check for user guide updates
+- [ ] docs/infrastructure.md - Check for infrastructure changes
+- [ ] docs/development-guide.md - Check for user guide updates
 
 ## Changes to Apply
 

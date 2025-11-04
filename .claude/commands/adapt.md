@@ -50,7 +50,7 @@ I'll create `.claude/plan.md` with phases for:
 
 ## Phase 4: Documentation
 - [ ] Update README.md with project specifics
-- [ ] Update user-guide.md with custom workflows
+- [ ] Update development-guide.md with custom workflows
 - [ ] Document custom recipes in justfile
 ```
 
@@ -79,8 +79,9 @@ just lint && just format-check && just test
 ### 5. Update Documentation
 
 Update project docs to reflect customizations:
-- `docs/architecture.md` - document custom design decisions
-- `docs/user-guide.md` - explain custom workflows
+- `docs/infrastructure.md` - document infrastructure customizations
+- `docs/architecture.md` - document application design decisions
+- `docs/development-guide.md` - explain custom workflows
 - `README.md` - update with project specifics
 
 ### 6. Cleanup

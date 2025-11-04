@@ -463,7 +463,7 @@ log_info "Next steps:"
 echo "  1. Review .envrc for project configuration"
 echo "  2. Edit justfile to implement build/test/publish recipes"
 echo "  3. Add your source code to src/"
-echo "  4. Configure GitHub organization secrets (see docs/user-guide.md)"
+echo "  4. Configure GitHub organization secrets (see docs/development-guide.md)"
 echo "  5. Initialize git and commit: git init && git add . && git commit -m 'Initial commit'"
 echo ""
 
