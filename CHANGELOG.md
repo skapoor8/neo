@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/skapoor8/neo/compare/v1.0.1...v1.0.2) (2025-11-04)
+
+### Bug Fixes
+
+* eliminate screen flickering with buffered rendering ([90ab9c1](https://github.com/skapoor8/neo/commit/90ab9c19367e945ba9d283855d03339c6e1c908e))
+
 ## [1.0.1](https://github.com/skapoor8/neo/compare/v1.0.0...v1.0.1) (2025-11-03)
 
 ### Bug Fixes
