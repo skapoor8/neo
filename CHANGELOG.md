@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/skapoor8/neo/compare/v1.1.4...v1.1.5) (2026-03-12)
+
+
+### Bug Fixes
+
+* use tag name for release URL, bare version for asset name ([712b2d8](https://github.com/skapoor8/neo/commit/712b2d8e32d5e96bd7b30bbe68503e4e5a303310))
+
 ## [1.1.4](https://github.com/skapoor8/neo/compare/v1.1.3...v1.1.4) (2026-03-12)
 
 
