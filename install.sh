@@ -34,7 +34,7 @@ fi
 # Get latest version
 echo "Fetching latest $PROJECT release..."
 LATEST_URL="https://api.github.com/repos/$REPO/releases/latest"
-VERSION=$(curl -fsSL "$LATEST_URL" | grep '"tag_name"' | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
+VERSION=$(curl -fsSL "$LATEST_URL" | grep '"tag_name"' | sed 's/.*"tag_name": *"v\{0,1\}\(.*\)".*/\1/')
 
 # Download
 ASSET_NAME="${PROJECT}-${VERSION}-${TARGET}.tar.gz"
