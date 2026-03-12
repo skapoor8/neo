@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/skapoor8/neo/compare/v1.1.2...v1.1.3) (2026-03-12)
+
+
+### Bug Fixes
+
+* package release binaries as versioned tar.gz archives ([bf79238](https://github.com/skapoor8/neo/commit/bf79238023811661f558fe09fa4aacc0d6a8a9ee))
+
 ## [1.1.2](https://github.com/skapoor8/neo/compare/v1.1.1...v1.1.2) (2026-03-12)
 
 
