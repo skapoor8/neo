@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # install.sh — Install neo binary
-# Usage: curl -fsSL https://raw.githubusercontent.com/cloudvoyant/neo/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/skapoor8/neo/main/install.sh | bash
 set -euo pipefail
 
 PROJECT="neo"
-GITHUB_ORG="cloudvoyant"
+GITHUB_ORG="skapoor8"
 REPO="$GITHUB_ORG/$PROJECT"
 
 # Detect OS and arch
