@@ -22,11 +22,12 @@ for target in "${TARGETS[@]}"; do
     zig build -Doptimize=ReleaseFast \
         -Dtarget="$target" \
         --prefix "zig-out/release/$target"
-    # Copy binary with platform suffix so all targets have unique filenames
+    # Package binary as versioned tar.gz: ${PROJECT}-${VERSION}-${TARGET}.tar.gz
     ext=""
     [[ "$target" == *windows* ]] && ext=".exe"
-    cp "zig-out/release/$target/bin/${PROJECT}${ext}" \
-        "zig-out/release/${PROJECT}-${target}${ext}"
+    binary="zig-out/release/$target/bin/${PROJECT}${ext}"
+    archive="zig-out/release/${PROJECT}-${VERSION}-${target}.tar.gz"
+    tar -czf "$archive" -C "$(dirname "$binary")" "${PROJECT}${ext}"
 done
 
 log_success "All platform builds complete in zig-out/release/"
