@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/skapoor8/neo/compare/v1.1.3...v1.1.4) (2026-03-12)
+
+
+### Bug Fixes
+
+* strip v-prefix from version tag in install.sh ([4689fec](https://github.com/skapoor8/neo/commit/4689fec64602bec07b42704c3756cef5e40ea134))
+
 ## [1.1.3](https://github.com/skapoor8/neo/compare/v1.1.2...v1.1.3) (2026-03-12)
 
 
