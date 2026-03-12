@@ -37,16 +37,11 @@ LATEST_URL="https://api.github.com/repos/$REPO/releases/latest"
 VERSION=$(curl -fsSL "$LATEST_URL" | grep '"tag_name"' | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
 
 # Download
-ASSET_NAME="${PROJECT}-${VERSION}-${TARGET}.tar.gz"
+ASSET_NAME="${PROJECT}-${TARGET}"
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/$ASSET_NAME"
 
 echo "Downloading $ASSET_NAME..."
-TMP_DIR=$(mktemp -d)
-trap "rm -rf $TMP_DIR" EXIT
-curl -fsSL "$DOWNLOAD_URL" | tar -xz -C "$TMP_DIR"
-
-# Install
-cp "$TMP_DIR/$PROJECT" "$INSTALL_DIR/$PROJECT"
+curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/$PROJECT"
 chmod +x "$INSTALL_DIR/$PROJECT"
 
 echo "Installed $PROJECT $VERSION to $INSTALL_DIR/$PROJECT"
