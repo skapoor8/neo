@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/skapoor8/neo/compare/v1.1.0...v1.1.1) (2026-03-12)
+
+
+### Bug Fixes
+
+* remove GCP_SA_KEY guard from publish step, fix install.sh org ([175626b](https://github.com/skapoor8/neo/commit/175626ba2c238fa49471e8fcfce3394ab1c1c719))
+
 # [1.1.0](https://github.com/skapoor8/neo/compare/v1.0.2...v1.1.0) (2026-03-12)
 
 
