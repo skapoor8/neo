@@ -1,7 +1,7 @@
 const std = @import("std");
 const builtin = @import("builtin");
 const posix = std.posix;
-const lib = @import("lib.zig");
+const lib = @import("neo");
 
 pub fn main() !void {
     // Set up allocator for argument parsing

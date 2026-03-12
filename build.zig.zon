@@ -1,11 +1,13 @@
 .{
     .name = .neo,
-    .version = "1.0.2",
-    .dependencies = .{},
+    .version = "0.1.0",
+    // Fingerprint uniquely identifies this package. Regenerate with: zig build --fetch
+    .fingerprint = 0x788fdc13445a9c61,
+    // After scaffolding, run `zig build --fetch` to populate .hash if you add dependencies.
+    // No external dependencies by default.
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
     },
-    .fingerprint = 0x788fdc133822c683,
 }

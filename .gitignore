@@ -31,10 +31,6 @@ node_modules/
 bower_components/
 vendor/
 
-# Zig build artifacts
-.zig-cache/
-zig-out/
-
 # Package manager files
 *.lock
 package-lock.json
@@ -84,7 +80,14 @@ temp/
 .sass-cache/
 .npm/
 .yarn/
-.nv/
+.tmp/
+
+# Zig build artifacts
+zig-out/
+.zig-cache/
+
+# Legacy archive
+.legacy/
 
 # Coverage and test reports
 coverage/
@@ -101,7 +104,17 @@ test-results/
 *.backup
 *.old
 
+# mise local configuration (user-specific overrides)
+.mise.local.toml
+
 # Instance-specific development files
-.claude/plan.md
-.claude/todos.md
-.claude/review.md
+.spec
+.claude/*
+!.claude/CLAUDE.md
+!.claude/commands/
+!.claude/commands/**
+
+# Style guide learning data (personal, not shared)
+.style/patterns.json
+.style/history.jsonl
+# .style/config.json is committed (team settings)

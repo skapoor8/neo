@@ -11,67 +11,50 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    if: "github.event_name == 'pull_request' || github.event.before != '0000000000000000000000000000000000000000'"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache binaries
-        uses: actions/cache@v4
-        with:
-          path: /usr/local/bin
-          key: ${{ runner.os }}-bin-${{ hashFiles('scripts/setup.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-bin-
+      - name: Setup python symlink for gcloud installer
+        run: sudo ln -sf /usr/bin/python3 /usr/local/bin/python
 
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        with:
-          path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-${{ hashFiles('scripts/setup.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
+      - name: Setup mise
+        uses: jdx/mise-action@v2
 
-      - name: Cache npm global packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('scripts/setup.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Cache Zig
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/zig
-            .zig-cache
-          key: ${{ runner.os }}-zig-${{ hashFiles('build.zig.zon') }}
-          restore-keys: |
-            ${{ runner.os }}-zig-
-
-      - name: Setup just
-        uses: extractions/setup-just@v2
-
-      - name: Setup Zig
-        uses: goto-bus-stop/setup-zig@v2
-        with:
-          version: 0.15.1
-
-      - name: Setup environment
-        run: bash scripts/setup.sh
+      - name: Install dependencies
+        run: mise run install
 
       - name: Run tests
-        run: |
-          source .envrc
-          just test
+        run: mise run test
 
       - name: Check formatting
-        run: |
-          source .envrc
-          just format-check
+        run: mise run format-check
 
-      - name: Lint
-        run: |
-          source .envrc
-          just lint
+      - name: Run linting
+        run: mise run lint
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: src/
+          retention-days: 7
+
+  publish-rc:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: "github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: jdx/mise-action@v2
+      - name: Install dependencies
+        run: mise run install
+      - name: Publish RC package
+        run: mise run publish-rc
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

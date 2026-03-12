@@ -1,0 +1,11 @@
+.{
+    .name = .neo,
+    .version = "1.0.2",
+    .dependencies = .{},
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+    .fingerprint = 0x788fdc133822c683,
+}

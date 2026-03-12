@@ -1,54 +1,29 @@
-# ==============================================================================
-# Base stage: Minimal runtime for docker-compose (run/test)
-# ==============================================================================
-FROM ubuntu:22.04 AS base
+FROM ubuntu:22.04
 
-# Install minimal base dependencies
-# Note: Don't clean up apt lists yet - setup.sh needs them with --docker-optimize
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash \
-    curl \
-    sudo \
-    git \
-    ca-certificates \
-    xz-utils
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl ca-certificates python3 \
+    && ln -sf /usr/bin/python3 /usr/local/bin/python \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user
-RUN useradd -m -s /bin/bash vscode && \
-    echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copy setup scripts
-COPY scripts /tmp/scripts
+ENV MISE_DATA_DIR="/mise"
+ENV MISE_CONFIG_DIR="/mise"
+ENV MISE_CACHE_DIR="/mise/cache"
+ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
+ENV PATH="/mise/shims:$PATH"
 
-# Install required dependencies only (bash, just, direnv)
-RUN cd /tmp/scripts && \
-    chmod +x setup.sh && \
-    ./setup.sh --docker-optimize && \
-    rm -rf /tmp/scripts
+RUN curl https://mise.run | sh
 
-# Add direnv hook to vscode user's bashrc
-RUN echo 'eval "$(direnv hook bash)"' >> /home/vscode/.bashrc && \
-    chown vscode:vscode /home/vscode/.bashrc
-
-USER vscode
 WORKDIR /workspace
 
-# ==============================================================================
-# Dev stage: Full development environment for DevContainers
-# ==============================================================================
-FROM base AS dev
+# Copy manifest first for tool installation layer caching
+COPY mise.toml .
+RUN mise trust && mise install --yes
 
-USER root
+# Copy source and build
+COPY . .
+RUN mise run build
 
-# Copy setup scripts again for dev tools installation
-COPY scripts /tmp/scripts
-
-# Install development tools (docker, node/npx, gcloud, shellcheck, shfmt, claude)
-# and template testing tools (bats-core)
-RUN cd /tmp/scripts && \
-    chmod +x setup.sh && \
-    ./setup.sh --dev --template --docker-optimize && \
-    rm -rf /tmp/scripts
-
-USER vscode
-WORKDIR /workspace
+CMD ["mise", "run", "run"]
