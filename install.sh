@@ -35,10 +35,9 @@ fi
 echo "Fetching latest $PROJECT release..."
 LATEST_URL="https://api.github.com/repos/$REPO/releases/latest"
 TAG=$(curl -fsSL "$LATEST_URL" | grep '"tag_name"' | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
-VERSION="${TAG#v}"
 
 # Download
-ASSET_NAME="${PROJECT}-${VERSION}-${TARGET}.tar.gz"
+ASSET_NAME="${PROJECT}-${TAG}-${TARGET}.tar.gz"
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/$TAG/$ASSET_NAME"
 
 echo "Downloading $ASSET_NAME..."

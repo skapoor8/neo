@@ -26,7 +26,7 @@ for target in "${TARGETS[@]}"; do
     ext=""
     [[ "$target" == *windows* ]] && ext=".exe"
     binary="zig-out/release/$target/bin/${PROJECT}${ext}"
-    archive="zig-out/release/${PROJECT}-${VERSION}-${target}.tar.gz"
+    archive="zig-out/release/${PROJECT}-v${VERSION}-${target}.tar.gz"
     tar -czf "$archive" -C "$(dirname "$binary")" "${PROJECT}${ext}"
 done
 
