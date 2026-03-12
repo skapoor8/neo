@@ -19,8 +19,17 @@ shellcheck = "latest"
 shfmt      = "latest"
 
 [tasks.install]
-description = "Fetch Zig build dependencies"
-run         = "zig build --fetch 2>/dev/null || true"
+description = "Install dependencies (npm for semantic-release + zig packages)"
+run         = """
+npm install --no-save --prefix "{{config_root}}" \
+  semantic-release \
+  @semantic-release/changelog \
+  @semantic-release/exec \
+  @semantic-release/git \
+  @semantic-release/github \
+  conventional-changelog-conventionalcommits
+zig build --fetch 2>/dev/null || true
+"""
 
 [tasks.build]
 description = "Build Zig project (debug)"
