@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/skapoor8/neo/compare/v1.1.1...v1.1.2) (2026-03-12)
+
+
+### Bug Fixes
+
+* correct install.sh asset name format ([1965c2e](https://github.com/skapoor8/neo/commit/1965c2ec169e97f6d4c58387dbaee060d6d7ba6b))
+
 ## [1.1.1](https://github.com/skapoor8/neo/compare/v1.1.0...v1.1.1) (2026-03-12)
 
 
