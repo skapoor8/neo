@@ -4,12 +4,13 @@
 # =============================================================================
 
 [env]
-PROJECT = "neo"
+PROJECT                 = "neo"
 TEMPLATE                = "mise-zig-template"
 VERSION                 = "{{exec(command='cat version.txt 2>/dev/null || echo 0.1.0')}}"
 GCP_REGISTRY_PROJECT_ID = "devops-466002"
 GCP_REGISTRY_REGION     = "us-east1"
 GCP_REGISTRY_NAME       = "cloudvoyant-generic-registry"
+_.path                  = ['{{config_root}}/node_modules/.bin']
 
 [tools]
 zig        = "0.15.1"
