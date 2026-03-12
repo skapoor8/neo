@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/skapoor8/neo/compare/v1.1.5...v1.1.6) (2026-03-12)
+
+
+### Bug Fixes
+
+* align release asset names with install.sh expected format ([de0ccdf](https://github.com/skapoor8/neo/commit/de0ccdfad0d4e95d89216d4c0067c712af26ca1b))
+
 ## [1.1.5](https://github.com/skapoor8/neo/compare/v1.1.4...v1.1.5) (2026-03-12)
 
 
