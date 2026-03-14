@@ -7,7 +7,7 @@ Matrix digital rain effect for your terminal.
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/cloudvoyant/neo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/skapoor8/neo/main/install.sh | bash
 ```
 
 Or build from source:
